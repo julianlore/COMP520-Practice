@@ -128,14 +128,13 @@ blk:            '{' decls stmts '}'
 param:          tIDENTIFIER tARROW type
         ;
 
-params:         %empty
-        |       param
+params:         param
         |       params ',' param
-        ;
+                ;
 
 funcdecl:       tFUN tIDENTIFIER '(' params ')' ':' typelist blk
-        /* |       tFUN tIDENTIFIER '(' explist tARROW typelist ')' ':' typelist blk */
-        ;
+        |       tFUN tIDENTIFIER '(' ')' ':' typelist blk
+                ;
 
 funcdecls:      funcdecl
         |       funcdecls funcdecl
