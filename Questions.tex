@@ -47,20 +47,20 @@
 \item
   \begin{minipage}{0.5\linewidth}
 \begin{verbatim}
-iload_0         [o]
-dup             [o; o]
-aload_a         [o; o; v]
-swap            [o; v; o]
-putfield size I [o] size = 0
-pop             []
+iload_{x}               [o]
+dup                     [o; o]
+aload_{y}               [o; o; v]
+swap                    [o; v; o]
+putfield {field} {type} [o], size = 0
+pop                     []
 \end{verbatim}
   \end{minipage}
-  $\implies$ \hspace{5 em}
+  $\implies$ \hspace{1 em}
   \begin{minipage}{0.5\linewidth}
 \begin{verbatim}
-aload_1         [o]
-iload_0         [o; v]
-putfield size I [] size = 0
+aload_{y}               [o]
+iload_{x}               [o; v]
+putfield {field} {type} [], size = 0
 \end{verbatim}
   \end{minipage}
   The stack is still empty at the end and size still gets assigned
