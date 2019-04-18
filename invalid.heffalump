@@ -1,0 +1,4 @@
+ fun main(s -> string) : void {
+     var i = test(34);
+     output("hello world" + i);
+}
