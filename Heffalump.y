@@ -136,14 +136,14 @@ funcdecl:       tFUN tIDENTIFIER '(' params ')' ':' typelist blk
         |       tFUN tIDENTIFIER '(' ')' ':' typelist blk
                 ;
 
-funcdecls:      funcdecl
+funcdecls:      %empty
         |       funcdecls funcdecl
         ;
 
 output:         tOUTPUT '(' explist ')'
         ;
 %%
-
+// Below is for testing
 int main() {
     yyparse();
     printf("Valid program!\n");
