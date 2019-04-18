@@ -23,10 +23,10 @@
 \begin{enumerate}[(a)]
 \item ~
   \begin{prooftree}
-    \AXC{$F, T, V \vdash isCastable(\sigma, \tau)$}
-    \AXC{$T(cast) = \sigma$} \AXC{$F, T, V \vdash e: \tau$}
-    \AXC{$F, T, V \vdash \sigma := \tau$}
-    \QIC{$F, T, V \vdash cast(e) : \sigma$}
+    \AXC{$F, T, V \vdash isCastable(\tau, \sigma)$}
+    \AXC{$T(cast) = \sigma$}
+    \AXC{$F, T, V \vdash e: \tau$}
+    \TIC{$F, T, V \vdash cast(e) : \sigma$}
   \end{prooftree}
 \item Under the context $F, T$ and $V$, if $e_i$ is of type $\tau_i$
   (for $i \in \left\{1, 2, \ldots, n\right\}$) and there is a function
