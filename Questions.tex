@@ -73,4 +73,63 @@ putfield size I [] size = 0
   \\ However, $B$ is not sound as we no longer store \texttt{R1} into \texttt{R3}.
 \end{enumerate}
 
+\section{Native Code Generation}
+\begin{enumerate}[(a)]
+\item
+\begin{tabular}{l l l l}
+  name&offset&location&register
+  \\
+  \\ local & $0$ & & \texttt{R0}
+  \\ local & $1$ & & \texttt{R1}
+  \\ local & $2$ & \texttt{[fp - 4]}
+  \\ stack & $0$ & & \texttt{R2}
+  \\ stack & $1$ & & \texttt{R3}
+  \\ scratch & $0$ & & \texttt{R4}
+  \\ scratch & $1$ & & \texttt{R5}
+\end{tabular}
+\item
+\begin{verbatim}
+_baz:
+    save sp, -112, sp
+    st R0, [fp + 68]
+    st R1, [fp + 72]
+
+    mov 0, R2
+    st R2, [fp - 4]
+    mov R0, R2
+    mov R1, R3
+    cmp R2, R3
+
+    bge _end
+    mov R0, R2
+    mov R1, R3
+    mul R2, R3, R2
+    st R2, [fp - 4]
+_end:
+    ld [fp - 4] R0
+    restore
+    ret
+\end{verbatim}
+\end{enumerate}
+\section{Garbage Collection}
+\begin{enumerate}[(a)]
+\item
+  \begin{enumerate}[(i)]
+  \item Object 1: 1
+    \\ Object 2: 2
+  \item Object 1: 0
+    \\ Object 2: 2
+    \\ Object 3: 2
+  \end{enumerate}
+\end{enumerate}
+\section{Special Topics}
+\begin{enumerate}[(a)]
+\item
+  \begin{enumerate}[(a)]
+  \item 4 accesses
+  \item 3 accesses
+  \end{enumerate}
+\item That the type stored into a local is the same as the type of the
+  local. No overflow.
+\end{enumerate}
 \end{document}
