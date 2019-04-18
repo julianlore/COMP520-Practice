@@ -66,11 +66,9 @@ putfield size I [] size = 0
   The stack is still empty at the end and size still gets assigned
   whatever is at local $0$.
 
-\item $A$ is sound since \texttt{R3 := R1}
-  \\$\implies$ \texttt{sub R1,
-    R1, R1 $\equiv$ sub R1, R3, R1} $\implies$ \texttt{R1 = R1 - R1 $\equiv$ R1 = R1
-    - R3}
-  \\ However, $B$ is not sound as we no longer store \texttt{R1} into \texttt{R3}.
+\item $A$ is not sound, \texttt{R3} could change elsewhere before we
+  jump to \texttt{\_label}, so it is not equivalent to substituting in \texttt{R1}.
+  \\ $B$ is not sound as we no longer store \texttt{R1} into \texttt{R3}.
 \end{enumerate}
 
 \section{Native Code Generation}
