@@ -1,0 +1,39 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumerate, bussproofs, listings}
+\EnableBpAbbreviations
+
+\makeatletter
+\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                       {2.3ex \@plus.2ex}%
+                                       {\normalfont\bfseries Q}}
+\makeatother
+
+
+\begin{document}
+\section{Scanners and Parsers}
+\begin{enumerate}[(a)]
+\item
+  \lstinputlisting[breaklines=true]{Heffalump.l}
+\item ~
+  \lstinputlisting[breaklines=true]{Heffalump.y}
+\end{enumerate}
+\section{Typechecking}
+\begin{enumerate}[(a)]
+\item ~
+  \begin{prooftree}
+    \AXC{$F, T, V \vdash isCastable(\sigma, \tau)$}
+    \AXC{$T(cast) = \sigma$}
+    \AXC{$F, T, V \vdash e: \tau$}
+    \AXC{$F, T, V \vdash \sigma := \tau$}
+    \QIC{$F, T, V \vdash cast(e) : \sigma$}
+  \end{prooftree}
+\item Under the context $F, T$ and $V$, if $e_i$ is of type $\tau_i$
+  (for $i \in \left\{1, 2, \ldots, n\right\}$) and there is a function
+  that takes in parameters $\tau_1, \ldots, \tau_n$ which returns type
+  $\tau$, then under the context $F, T$ and $V$, $f(e_1, \ldots, e_n)$
+  is of type $\tau$.
+\end{enumerate}
+\end{document}
