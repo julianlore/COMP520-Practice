@@ -87,15 +87,18 @@ explist:        exp
 type:           tSTRING
         |       tINT
         |       tFLOAT
-        |       tVOID
         ;
 
 typelist:       type
         |       typelist ',' type
         ;
 
+rettype:        typelist
+|       tVOID
+;
+
 funccall:       tIDENTIFIER '(' explist ')'
-        ;
+;
 
 decl:           tVAR explist tARROW type ';'
         |       tVAR explist tARROW type '=' explist ';'
@@ -132,8 +135,8 @@ params:         param
         |       params ',' param
                 ;
 
-funcdecl:       tFUN tIDENTIFIER '(' params ')' ':' typelist blk
-        |       tFUN tIDENTIFIER '(' ')' ':' typelist blk
+funcdecl:       tFUN tIDENTIFIER '(' params ')' ':' rettype blk
+        |       tFUN tIDENTIFIER '(' ')' ':' rettype blk
                 ;
 
 funcdecls:      %empty
