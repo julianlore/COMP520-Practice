@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[margin=1in]{geometry}
-\usepackage{enumerate, bussproofs, listings}
+\usepackage{enumerate, bussproofs, listings, amsmath}
 \EnableBpAbbreviations
 
 \makeatletter
@@ -11,22 +11,20 @@
                                        {\normalfont\bfseries Q}}
 \makeatother
 
+\lstset{basicstyle=\ttfamily}
 
 \begin{document}
 \section{Scanners and Parsers}
 \begin{enumerate}[(a)]
-\item
-  \lstinputlisting[breaklines=true]{Heffalump.l}
-\item ~
-  \lstinputlisting[breaklines=true]{Heffalump.y}
+\item \lstinputlisting[breaklines=true]{Heffalump.l}
+\item ~ \lstinputlisting[breaklines=true]{Heffalump.y}
 \end{enumerate}
 \section{Typechecking}
 \begin{enumerate}[(a)]
 \item ~
   \begin{prooftree}
     \AXC{$F, T, V \vdash isCastable(\sigma, \tau)$}
-    \AXC{$T(cast) = \sigma$}
-    \AXC{$F, T, V \vdash e: \tau$}
+    \AXC{$T(cast) = \sigma$} \AXC{$F, T, V \vdash e: \tau$}
     \AXC{$F, T, V \vdash \sigma := \tau$}
     \QIC{$F, T, V \vdash cast(e) : \sigma$}
   \end{prooftree}
@@ -36,4 +34,43 @@
   $\tau$, then under the context $F, T$ and $V$, $f(e_1, \ldots, e_n)$
   is of type $\tau$.
 \end{enumerate}
+\section{Bytecode Generation}
+\begin{enumerate}[(a)]
+\item \lstinputlisting[breaklines=true]{tree.j}
+\item (See above)
+\item Expressions must increase the stack height by one. Statements
+  must keep the net stack height constant.
+\end{enumerate}
+
+\section{Optimization}
+\begin{enumerate}[(a)]
+\item
+  \begin{minipage}{0.5\linewidth}
+\begin{verbatim}
+iload_0         [o]
+dup             [o; o]
+aload_a         [o; o; v]
+swap            [o; v; o]
+putfield size I [o] size = 0
+pop             []
+\end{verbatim}
+  \end{minipage}
+  $\implies$ \hspace{5 em}
+  \begin{minipage}{0.5\linewidth}
+\begin{verbatim}
+aload_1         [o]
+iload_0         [o; v]
+putfield size I [] size = 0
+\end{verbatim}
+  \end{minipage}
+  The stack is still empty at the end and size still gets assigned
+  whatever is at local $0$.
+
+\item $A$ is sound since \texttt{R3 := R1}
+  \\$\implies$ \texttt{sub R1,
+    R1, R1 $\equiv$ sub R1, R3, R1} $\implies$ \texttt{R1 = R1 - R1 $\equiv$ R1 = R1
+    - R3}
+  \\ However, $B$ is not sound as we no longer store \texttt{R1} into \texttt{R3}.
+\end{enumerate}
+
 \end{document}
