@@ -94,11 +94,11 @@ typelist:       type
         ;
 
 rettype:        typelist
-|       tVOID
-;
+        |       tVOID
+        ;
 
 funccall:       tIDENTIFIER '(' explist ')'
-;
+        ;
 
 decl:           tVAR explist tARROW type ';'
         |       tVAR explist tARROW type '=' explist ';'
